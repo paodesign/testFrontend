@@ -10,11 +10,10 @@ let listaItems = [
     { id:1003, cantidad: 5, nombre: "Manzana", precio: 400 }
 ]
 
-export function renderTabla(){
+function renderTabla(){
     tablaItem.innerHTML = '';
     tablaItem.appendChild(encabezadoTabla);
-    cargarItems();
-   
+    cargarItems();   
 }
 
 function generadorIdNext(){

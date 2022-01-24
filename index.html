@@ -40,7 +40,6 @@
                                     <div class="col-auto">
                                         <div class="input-group">
                                             <div class="input-group-text">$</div>
-                                            <label for="precio"></label>
                                             <input type="text" class="form-control" 
                                                 placeholder="Precio" name="precio">
                                         </div>
@@ -70,9 +69,9 @@
                         </div>
                         <div class="card-body">
                             <div class="container my-5" id="tablaItem">
-                                <div class="row">
+                                <div class="row" id="encabezadoTablaItem">
                                     <div class="col-12">
-                                        <ul class="list-group list-group-horizontal" id="encabezadoTablaItem">
+                                        <ul class="list-group list-group-horizontal" >
                                             <li class="list-group-item col text-center">Id item</li>
                                             <li class="list-group-item col text-center">Cantidad</li>
                                             <li class="list-group-item col text-center">Nombre item</li>
@@ -160,8 +159,8 @@
                                             <select class=" form-select form-control"
                                                 aria-label=".form-select-sm example" name="tipo">
                                                 <option selected>Seleccione tipo</option>
-                                                <option value="1">Empresa</option>
-                                                <option value="2">Consumidor Final</option>
+                                                <option value="Empresa">Empresa</option>
+                                                <option value="Consumidor-Final">Consumidor Final</option>
 
                                             </select>
                                         </div>
@@ -217,24 +216,23 @@
                             Lista de Clientes
                         </div>
                         <div class="card-body">
-                            <div class="container my-5" id="tablaItem">
-                                <div class="row">
-                                    <div class="col-12">
-
+                            <div class="container my-5" id="tabla-cliente">
+                                <div class="row" id="encabezadoTablaCliente">
+                                    <div class="col-12" >
                                         <ul class="list-group list-group-horizontal">
                                             <li class="list-group-item col-3 text-center">Rut </li>
-                                            <li class="list-group-item col text-center">Nombre</li>
-                                            <li class="list-group-item col text-center">Apellido</li>
+                                            <li class="list-group-item col text-center">Nombre y Apellido</li>
+                                            <li class="list-group-item col text-center">Tipo</li>
                                             <li class="list-group-item col text-center">Opciones</li>
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="row" id="item" style="display: none;">
+                                <div class="row" id="cliente-fila" style="display: none;">
                                     <div class="col-12">
                                         <ul class="list-group list-group-horizontal">
-                                            <li class="list-group-item col text-center" id="id"></li>
-                                            <li class="list-group-item col text-center" id="cantidad"></li>
+                                            <li class="list-group-item col text-center" id="rut"></li>
                                             <li class="list-group-item col text-center" id="nombre"></li>
+                                            <li class="list-group-item col text-center" id="tipo"></li>
                                             <li class="list-group-item col text-center" id="opciones">
                                                 <button type="button" class="btn btn-primary mx-1">
                                                     <figure style="margin: 0 0 0;">
@@ -325,9 +323,14 @@
                                     </ul>
                                     <ul class="list-group">
                                         <li class="list-group-item">
-                                            <input type="number" name="" id="">
-                                            <label for="canrtidad">un.</label>
-                                            <button type="button" class="btn btn-success col mx-5 ">Seleccionar</button>
+                                            <div class="input-group">
+                                                <input type="number" name="" id="" class="form-control">
+                                                <div class="input-group-text">un.</div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <button type="button" class="btn btn-success col">Seleccionar</button>
+
                                         </li>
                                     </ul>
                                 </div>

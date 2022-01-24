@@ -11,7 +11,7 @@ collapseCliente.addEventListener('show.bs.collapse', clienteAbm.agregarIdCliente
 
 
 let collapseListaClientes = document.getElementById("collapseThree");
-collapseListaClientes.addEventListener('show.bs.collapse', clienteAbm.cargarListaClientes);
+collapseListaClientes.addEventListener('show.bs.collapse', clienteAbm.renderTabla);
 
 //handleRequest();
 itemGestion.cargarItems();

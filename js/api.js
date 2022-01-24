@@ -30,6 +30,7 @@ export function getAll(listarClientes ){
     const request = axios.get(`https://crudcrud.com/api/${hashApi}/clientes`);
 
     request.then(response => {
+        listarClientes(response.data);
         console.log(response.data);
     })
 
