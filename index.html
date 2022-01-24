@@ -13,6 +13,7 @@
 
 <body>
     <div class="accordion" id="accordionExample">
+        <!-- SECCION ITEMS -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingOne">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
@@ -31,25 +32,30 @@
                         <div class="card-body">
 
                             <div class="container my-5">
-                                <form class="row gy-2 gx-3 align-items-center">
+                                <form class="row gy-2 gx-3 align-items-center" id="form-item">
                                     <div class="col-auto">
-                                        <label class="visually-hidden" for="autoSizingInput">Nombre</label>
-                                        <input type="text" class="form-control" id="autoSizingInput"
-                                            placeholder="Nombre Item">
+                                        <input type="text" class="form-control" 
+                                            placeholder="Nombre Item" name="nombre">
                                     </div>
                                     <div class="col-auto">
-                                        <label class="visually-hidden" for="autoSizingInputGroup">Username</label>
                                         <div class="input-group">
                                             <div class="input-group-text">$</div>
                                             <label for="precio"></label>
-                                            <input type="text" class="form-control" id="autoSizingInputGroup"
-                                                placeholder="Precio">
+                                            <input type="text" class="form-control" 
+                                                placeholder="Precio" name="precio">
+                                        </div>
+                                    </div>
+                                    <div class="col-auto">
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" 
+                                                placeholder="Cantidad" name="cantidad">
                                         </div>
                                     </div>
 
 
+
                                     <div class="col-auto">
-                                        <button type="submit" class="btn btn-primary">Agregar</button>
+                                        <button type="submit" class="btn btn-primary" id="btn-agregar">Agregar</button>
                                     </div>
                                 </form>
                             </div>
@@ -66,8 +72,7 @@
                             <div class="container my-5" id="tablaItem">
                                 <div class="row">
                                     <div class="col-12">
-
-                                        <ul class="list-group list-group-horizontal">
+                                        <ul class="list-group list-group-horizontal" id="encabezadoTablaItem">
                                             <li class="list-group-item col text-center">Id item</li>
                                             <li class="list-group-item col text-center">Cantidad</li>
                                             <li class="list-group-item col text-center">Nombre item</li>
@@ -79,14 +84,12 @@
                                 <div class="row" id="item" style="display: none">
                                     <div class="col-12">
                                         <ul class="list-group list-group-horizontal">
-                                            <li class="list-group-item col" id="id">1</li>
+                                            <li class="list-group-item col" id="id"></li>
                                             <li class="list-group-item col" id="cantidad"></li>
                                             <li class="list-group-item col" id="nombre"></li>
                                             <li class="list-group-item col" id="precio"></li>
                                             <li class="list-group-item col" id="opciones">
-                                                <button type="button" class="btn btn-success"
-                                                    style="display: none;">Seleccionar</button>
-                                                <button type="button" class="btn btn-danger mx-2">Eliminar</button>
+                                                <button type="button" class="btn btn-danger mx-2" >Eliminar</button>
                                             </li>
                                         </ul>
                                     </div>
@@ -100,10 +103,15 @@
                 </div>
             </div>
         </div>
+         <!-- SECCION ITEMS  END-->
+
+
+
+          <!-- SECCION CLIENTE -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" id="btn-crear">
                     Crear Cliente
                 </button>
             </h2>
@@ -117,14 +125,14 @@
                         </div>
                         <div class="card-body">
                             <h5 class="card-title">Datos del cliente:</h5>
-                            <form id="formulario">
+                            <form id="formularioCliente">
                                 <div class="container my-5">
 
                                     <div class="row my-3">
                                         <div class="col-6">
                                             <label for="id">Id</label>
                                             <input type="" class="form-control" placeholder="Id" aria-label="id"
-                                                name="id">
+                                                name="id" disabled>
                                         </div>
                                         <div class="col-6">
                                             <label for="rut">Rut</label>
@@ -174,7 +182,7 @@
                                                 </label>
                                             </div>
                                         </div>
-                                        <div class="col-6 text-center">
+                                        <div class="col-6 ">
                                             <button type="submit" class="btn btn-primary">Crear</button>
                                         </div>
                                     </div>
@@ -188,6 +196,11 @@
                 </div>
             </div>
         </div>
+        <!-- SECCION CLIENTE  END-->
+
+
+
+        <!-- SECCION OPERACION CLIENTES -->
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingThree">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
@@ -325,15 +338,16 @@
                 </div>
             </div>
         </div>
+          <!-- SECCION OPERACION CLIENTES  END-->
     </div>
 
 
 
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.2/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
         crossorigin="anonymous"></script>
-    <script type="text/javascript" src="javascript.js"></script>
+    <script type="module" src="js/main.js"></script>
 </body>
 
 </html>
