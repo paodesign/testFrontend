@@ -54,7 +54,6 @@ export function agregarItem(event){
 
 function limpiarForm(){
     let inputs = formItem.getElementsByTagName('input');
-    console.log(inputs);
     inputs.cantidad.value = '';
     inputs.precio.value = '';
     inputs.nombre.value = '';
@@ -67,8 +66,6 @@ function eliminarItem(event){
     let idItem = new Number(idString);
     console.log(idItem)
     let newListaItems = listaItems.filter((item)=> item.id != idItem);
-    console.log(newListaItems)
-
     listaItems = newListaItems;
     renderTabla()
 }

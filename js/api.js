@@ -1,4 +1,4 @@
-const hashApi = "9828f043fe464434b051a6993a04c34e";
+const hashApi = "aa19d9c0291342dc998275ee676c86d1";
 
 
 export function altaCliente(cliente){
@@ -16,8 +16,16 @@ export function altaCliente(cliente){
 
 }
 
-export function bajaCliente(){
+export function bajaCliente(clienteId){
+    const request = axios.delete(`https://crudcrud.com/api/${hashApi}/clientes/${clienteId}`);
 
+    request.then(response => {
+        console.log(response);
+    })
+
+    request.catch(error =>{
+        console.error(error);
+    })
 }
 
 export function modificacionCliente(){
