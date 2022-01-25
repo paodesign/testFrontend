@@ -16,10 +16,15 @@ export function agregarIdCliente() {
     formCliente.id.value = generadorIdCliente();
 }
 
-export function enviarCliente(event){
+export function crearCliente(event){
     event.preventDefault();
     let formData = new FormData(event.target);
     const client = Object.fromEntries(formData);
+    if(client.activo){
+        client.activo = true;
+    }else {
+        client.activo = false;
+    }
     api.altaCliente(client);
     limpiarFormCliente();
 }
@@ -43,6 +48,21 @@ function limpiarFormCliente(){
     selectTipo[0].selected = true;
 }
 
+function configurarOpciones(fila, btnId){
+    let btnElininar = fila.querySelector("#btn-eliminar");
+        btnElininar.id = btnId;
+        btnElininar.addEventListener("click", eliminarCliente);
+
+    // let btnModificar = fila.querySelector("#btn-modificar");
+    //     btnModificar.id = btnId;
+    //     btnModificar.addEventListener("click", modificarCliente);
+    
+    let btnVer = fila.querySelector("#btn-ver");
+        btnVer.id = btnId;
+        btnVer.addEventListener("click", verCliente);
+    
+}
+
 function cargarListaClientes(){
     api.getAll((ListaClientes) => {
         ListaClientes.forEach(cliente => {
@@ -51,35 +71,41 @@ function cargarListaClientes(){
         newFila.querySelector("#rut").textContent= cliente.rut;
         newFila.querySelector("#nombre").textContent= `${cliente.nombre} ${cliente.apellido}`;
         newFila.querySelector("#tipo").textContent= cliente.tipo;
-        let btnElininar = newFila.querySelector("#btn-eliminar");
-        btnElininar.id = `btn_${cliente._id}`;
-        btnElininar.addEventListener("click", eliminarCliente);
+        configurarOpciones(newFila, `btn_${cliente._id}`);
         tablaCliente.appendChild(newFila);
       });
     });
 }
 
-// let botonEliminar = newFila.querySelector("#opciones").getElementsByTagName("button")[0];
-//         botonEliminar.id = `btn_${item.id}`
-//         botonEliminar.addEventListener("click",eliminarItem);
-//         tablaItem.appendChild(newFila)
-
-// function eliminarItem(event){
-//     let botonEliminar = event.target;
-//     let idString = botonEliminar.id.substring(4,9);
-//     let idItem = new Number(idString);
-//     console.log(idItem)
-//     let newListaItems = listaItems.filter((item)=> item.id != idItem);
-//     listaItems = newListaItems;
-//     renderTabla()
-// }
-
 function eliminarCliente(event){
-    let btnElininar = event.target;
-    console.log("--------btn",btnElininar)
-    let idCliente = btnElininar.id.substring(4,28);
-    console.log("--------",idCliente);
-    api.bajaCliente(idCliente);
-    renderTabla()
+    if(confirm("Desea eliminar este cliente?") == true){
+        let btnElininar = event.target;
+        let idCliente = btnElininar.id.substring(4,28);
+        api.bajaCliente(idCliente, () =>{
+            renderTabla()
+        });
+    }
 
+}
+
+function cargarFormCliente(cliente) {
+    let inputs = formCliente.getElementsByTagName('input');
+    inputs.id.value = cliente._id;
+    inputs.rut.value = cliente.rut;
+    inputs.nombre.value = cliente.nombre;
+    inputs.apellido.value = cliente.apellido;
+    inputs.telefono.value = cliente.telefono;
+    let checkBoxActivo = document.getElementById('gridCheck');
+    checkBoxActivo.checked = cliente.activo;
+    let selectTipo = document.getElementById('tipo');
+    selectTipo.value = cliente.tipo;
+}
+
+export function verCliente(event){
+    let btnVer = event.target;
+    let idCliente = btnVer.id.substring(4,28);
+    
+    api.getById (idCliente, (cliente) => {
+        cargarFormCliente(cliente)
+    })
 }

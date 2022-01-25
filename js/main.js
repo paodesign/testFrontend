@@ -3,7 +3,7 @@ import * as clienteAbm from  "./cliente.js"
 
 itemGestion.formItem.addEventListener("submit", itemGestion.agregarItem);
 
-clienteAbm.formCliente.addEventListener("submit",clienteAbm.enviarCliente);
+clienteAbm.formCliente.addEventListener("submit",clienteAbm.crearCliente);
 
 
 let collapseCliente = document.getElementById("collapseTwo");
