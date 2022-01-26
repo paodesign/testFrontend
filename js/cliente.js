@@ -9,16 +9,9 @@ let tipoVista = "alta";
 let ultimoEventBtn = {};
 
 export function definirTipoVista(event){
-    event.preventDefault();
     if(tipoVista === "alta") {
         crearVistaAlta(event);
     }
-    // else if(tipoVista === "modificar"){
-    //     crearVistaModificar(ultimoEventBtn)
-    // }
-    // else {
-    //     crearVistaVer(ultimoEventBtn);
-    // }
 }
 
 export function asignarVistaAlta(){
@@ -36,8 +29,10 @@ function crearVistaAlta() {
     formCliente.id.value = generadorIdCliente();
     activarInputs();
     limpiarFormCliente();
+    let btns = formCliente.getElementsByTagName('button');
+    btns[0].textContent = "Crear"
     formCliente.activo.checked = true;
-    formCliente.activo.disabled= true;
+    formCliente.activo.value = true;
 }
 
 function crearVistaVer(event){
@@ -45,9 +40,9 @@ function crearVistaVer(event){
     ultimoEventBtn = event;
     tipoVista = "ver";
     let btnVer = event.target;
-
     let idCliente = btnVer.id.substring(4,28);
-    
+    let btns = formCliente.getElementsByTagName('button');
+    btns[0].textContent = "Volver"
     api.getById(idCliente, (cliente) => {
         cargarFormCliente(cliente);
         desactivarInputs();
@@ -61,10 +56,12 @@ function crearVistaModificar(event){
     tipoVista = "modificar";
     let btnModificar = event.target;
     let idCliente = btnModificar.id.substring(4,28);
+    let btns = formCliente.getElementsByTagName('button');
+    btns[0].textContent = "Modificar"
     api.getById(idCliente, (cliente)=>{
         cargarFormCliente(cliente);
-        expandirSeccionCliente()
         activarInputs();
+        expandirSeccionCliente();
     }); 
 }
 
@@ -75,23 +72,38 @@ export function expandirSeccionCliente(){
     })
 }
 
+export function expandirSeccionListado(){
+    const seccionCliente = document.getElementById('collapseThree')
+    new bootstrap.Collapse(seccionCliente, {
+        toggle: true
+    })
+}
+
 export function enviarCliente(event){
     event.preventDefault();
+    if(tipoVista === "ver")
+    {
+        expandirSeccionListado();
+        return;
+    }
     let formData = new FormData(event.target);
-    const client = Object.fromEntries(formData);
-    if(!client.tipo){
+    const clientData = Object.fromEntries(formData);
+
+    if(!clientData.tipo){
         event.target.tipo.classList.add('is-invalid')
         return;
     }
-    if(client.activo){
-        client.activo = true;
+    if(clientData.activo){
+        clientData.activo = true;
     }else {
-        client.activo = false;
+        clientData.activo = false;
     }
+
     if(tipoVista === "alta"){
-        api.altaCliente(client);
-    }if(tipoVista === "modificar"){
-        api.modificacionCliente(client._id, client);
+        api.altaCliente(clientData, expandirSeccionListado);
+    }
+    if(tipoVista === "modificar"){
+        api.modificarCliente(formCliente.id.value, clientData, expandirSeccionListado);
     }
     limpiarFormCliente();
 }
@@ -102,45 +114,32 @@ export function renderTabla(){
     cargarListaClientes();   
 }
 
-function limpiarFormCliente(){
-    let inputs = formCliente.getElementsByTagName('input');
-    console.log(inputs);
-    inputs.rut.value = '';
-    inputs.nombre.value = '';
-    inputs.apellido.value = '';
-    inputs.telefono.value = '';
-    let checkBoxActivo = document.getElementById('gridCheck');
-    checkBoxActivo.checked = false;
-    let selectTipo = document.getElementById('tipo');
-    selectTipo[0].selected = true;
-    selectTipo.classList.remove("is-invalid");
-}
 
 function configurarOpciones(fila, btnId){
     let btnElininar = fila.querySelector("#btn-eliminar");
-        btnElininar.id = btnId;
-        btnElininar.addEventListener("click", eliminarCliente);
-
+    btnElininar.id = btnId;
+    btnElininar.addEventListener("click", eliminarCliente);
+    
     let btnModificar = fila.querySelector("#btn-modificar");
-        btnModificar.id = btnId;
-        btnModificar.addEventListener("click", crearVistaModificar);
+    btnModificar.id = btnId;
+    btnModificar.addEventListener("click", crearVistaModificar);
     
     let btnVer = fila.querySelector("#btn-ver");
-        btnVer.id = btnId;
-        btnVer.addEventListener("click", crearVistaVer);    
+    btnVer.id = btnId;
+    btnVer.addEventListener("click", crearVistaVer);    
 }
-
+    
 function cargarListaClientes(){
     api.getAll((ListaClientes) => {
         ListaClientes.forEach(cliente => {
-        let newFila = clienteFila.cloneNode(true);
-        newFila.style = '';
-        newFila.querySelector("#rut").textContent= cliente.rut;
-        newFila.querySelector("#nombre").textContent= `${cliente.nombre} ${cliente.apellido}`;
-        newFila.querySelector("#tipo").textContent= cliente.tipo;
-        configurarOpciones(newFila, `btn_${cliente._id}`);
-        tablaCliente.appendChild(newFila);
-      });
+            let newFila = clienteFila.cloneNode(true);
+            newFila.style = '';
+            newFila.querySelector("#rut").textContent= cliente.rut;
+            newFila.querySelector("#nombre").textContent= `${cliente.nombre} ${cliente.apellido}`;
+            newFila.querySelector("#tipo").textContent= cliente.tipo;
+            configurarOpciones(newFila, `btn_${cliente._id}`);
+            tablaCliente.appendChild(newFila);
+        });
     });
 }
 
@@ -166,7 +165,7 @@ function cargarFormCliente(cliente) {
     let selectTipo = document.getElementById('tipo');
     selectTipo.value = cliente.tipo;
 }
-
+    
 function desactivarInputs(){
     let inputs = formCliente.getElementsByTagName('input');
     inputs.rut.disabled = true;
@@ -177,8 +176,6 @@ function desactivarInputs(){
     checkBoxActivo.disabled = true;
     let selectTipo = document.getElementById('tipo');
     selectTipo.disabled = true;
-    let btnCrearCliente = formCliente.getElementsByTagName('button');
-    btnCrearCliente[0].disabled = true;
 }
 
 
@@ -192,8 +189,18 @@ function activarInputs(){
     checkBoxActivo.disabled= false;
     let selectTipo = document.getElementById('tipo');
     selectTipo.disabled = false;
-    let btnCrearCliente = formCliente.getElementsByTagName('button');
-    btnCrearCliente[0].textContent = 'Modificar';
-    btnCrearCliente[0].target;
+}
+
+function limpiarFormCliente(){
+    let inputs = formCliente.getElementsByTagName('input');
+    inputs.rut.value = '';
+    inputs.nombre.value = '';
+    inputs.apellido.value = '';
+    inputs.telefono.value = '';
+    let checkBoxActivo = document.getElementById('gridCheck');
+    checkBoxActivo.checked = false;
+    let selectTipo = document.getElementById('tipo');
+    selectTipo[0].selected = true;
+    selectTipo.classList.remove("is-invalid");
 }
 

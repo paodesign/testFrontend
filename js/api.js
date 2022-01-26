@@ -1,9 +1,10 @@
-const hashApi = "4dc7d43e16eb4d88a430f9c687feebcb";
+const hashApi = "41df67895e5c4e31bbe240a03ab505c9";
 
 
-export function altaCliente(cliente){
+export function altaCliente(cliente, confirmarCreado){
     const request = axios.post(`https://crudcrud.com/api/${hashApi}/clientes`, cliente);
     request.then(response => {
+        confirmarCreado();
         alert("Cliente creado.");
         console.log(response);
     })
@@ -23,9 +24,10 @@ export function bajaCliente(clienteId, confimarEliminado){
     })
 }
 
-export function modificacionCliente(clienteId, cliente){
+export function modificarCliente(clienteId, cliente, confirmarModificado){
     const request = axios.put(`https://crudcrud.com/api/${hashApi}/clientes/${clienteId}`, cliente);
     request.then(response => {
+        confirmarModificado();
         alert("Cliente Modificado.");
         console.log(response);
     })

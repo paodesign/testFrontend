@@ -64,7 +64,6 @@ function eliminarItem(event){
     let botonEliminar = event.target;
     let idString = botonEliminar.id.substring(4,9);
     let idItem = new Number(idString);
-    console.log(idItem)
     let newListaItems = listaItems.filter((item)=> item.id != idItem);
     listaItems = newListaItems;
     renderTabla()
