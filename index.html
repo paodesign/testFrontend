@@ -134,40 +134,40 @@
                                                 name="id" disabled>
                                         </div>
                                         <div class="col-6">
-                                            <label for="rut">Rut</label>
-                                            <input type="" class="form-control" placeholder="Rut" aria-label="rut"
-                                                name="rut">
+                                            <label for="rut" class="form-label">Rut</label>
+                                            <input type="" class="form-control " placeholder="Rut" aria-label="rut"
+                                                name="rut" required>
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-6">
-                                            <label for="nombre">Nombre</label>
+                                            <label for="nombre" class="form-label">Nombre</label>
                                             <input type="text" class="form-control" placeholder="Nombre"
-                                                aria-label="nombre" name="nombre">
+                                                aria-label="nombre" name="nombre"required>
                                         </div>
                                         <div class="col-6">
-                                            <label for="apellido">Apellido</label>
+                                            <label for="apellido" class="form-label">Apellido</label>
                                             <input type="text" class="form-control" placeholder="Apellido"
-                                                aria-label="apellido" name="apellido">
+                                                aria-label="apellido" name="apellido"required>
                                         </div>
                                     </div>
 
                                     <div class="row my-3">
                                         <div class="col-6">
-                                            <label for="Tipo">Tipo</label>
+                                            <label for="Tipo" class="form-label">Tipo</label>
                                             <select class=" form-select form-control"
-                                                aria-label=".form-select-sm example" name="tipo" id="tipo">
-                                                <option selected value="Seleccione-tipo">Seleccione tipo</option>
+                                                aria-label=".form-select-sm example" name="tipo" id="tipo" required>
+                                                <option selected disabled value="Seleccione-tipo">Seleccione tipo</option>
                                                 <option value="Empresa">Empresa</option>
                                                 <option value="Consumidor-Final">Consumidor Final</option>
-
                                             </select>
                                         </div>
+                                        
                                         <div class="col-6">
-                                            <label for="telefono">Telefono</label>
+                                            <label for="telefono" class="form-label">Telefono</label>
                                             <input type="text" class="form-control" placeholder="Telefono"
-                                                aria-label="telefono" name="telefono">
+                                                aria-label="telefono" name="telefono"required>
                                         </div>
                                     </div>
                                     <div class="row">
@@ -175,14 +175,14 @@
                                         <div class="col-6">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="gridCheck"
-                                                    name="activo">
+                                                    name="activo" disabled>
                                                 <label class="form-check-label" for="gridCheck">
                                                     Activo
                                                 </label>
                                             </div>
                                         </div>
                                         <div class="col-6 ">
-                                            <button type="submit" class="btn btn-primary" >Crear</button>
+                                            <button type="submit" class="btn btn-primary" id="btn-crear" >Crear</button>
                                         </div>
                                     </div>
                                 </div>
