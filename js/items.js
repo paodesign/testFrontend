@@ -23,9 +23,7 @@ function generadorIdNext(){
     return ultimoId;
 }
 
-
-export function cargarItems(){
-   
+export function cargarItems(){   
     listaItems.forEach(item => {
         let newFila = itemFila.cloneNode(true);
         newFila.id = `item_${item.id}`
@@ -67,4 +65,8 @@ function eliminarItem(event){
     let newListaItems = listaItems.filter((item)=> item.id != idItem);
     listaItems = newListaItems;
     renderTabla()
+}
+
+export function obtenerListaItems(){
+    return listaItems;
 }
